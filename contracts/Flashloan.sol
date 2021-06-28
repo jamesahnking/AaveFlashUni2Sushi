@@ -1,20 +1,7 @@
 // SPDX-License-Identifier: MIT
-pragma solidity >=0.4.22 <0.9.0;
-
-import "@openzeppelin/contracts/utils/math/SafeMath.sol";
-import "@aave/protocol-v2/contracts/flashloan/base/FlashLoanReceiverBase.sol";
-
-contract AaveFlashLoan is FlashLoanReceiverBase {
-  using SafeMath for uint;
-
-  event Log(string message, uint val);
- 
-  constructor(ILendingPoolAddressesProvider _addressProvider)
-    public
-    FlashLoanReceiverBase(_addressProvider)
-  {}
-  
-  // This function Takes an ERC20 asset as an argument 
+pragma solidity ^0.8;
+/*
+ // This function Takes an ERC20 asset as an argument 
   // and its amount of an ERC20 asset
   
   // uint bal  - calculates the deployed contracts balance
@@ -43,6 +30,19 @@ contract AaveFlashLoan is FlashLoanReceiverBase {
   
   // uint16 referralCode - 0 means no referral 
 
+*/ 
+import "@openzeppelin/contracts/utils/math/SafeMath.sol";
+import "./interfaces/aave/FlashLoanReceiverBase.sol";
+
+contract FlashLoan is FlashLoanReceiverBase {
+  using SafeMath for uint;
+
+  event Log(string message, uint val);
+ 
+  constructor(ILendingPoolAddressesProvider _addressProvider)
+    
+    FlashLoanReceiverBase(_addressProvider)
+  {}
 
   function flashLoanTest(address asset, uint amount) external {
     uint bal = IERC20(asset).balanceOf(address(this));
@@ -100,7 +100,7 @@ contract AaveFlashLoan is FlashLoanReceiverBase {
     address initiator,
     bytes calldata params
   ) external override returns (bool) {
-  //
+  //  
     // This contract now has the funds requested.
     // Your logic goes here.
     // do stuff here (arbitrage, liquidation, etc...)

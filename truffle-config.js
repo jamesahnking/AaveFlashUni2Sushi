@@ -8,10 +8,12 @@ require("dotenv").config()
 module.exports = {
 
 	networks: {
-		mainnet_fork: {
+		"mainnet-fork": {
 			host: "127.0.0.1", // Localhost (default: none)
 			port: 8545, // Standard Ethereum port (default: none)
 			network_id: "999", // Any network (default: none)
+			//     network_id: "*",
+	//     skipDryRun: true
 		  },
 	//   development: {
 	//     host: "127.0.0.1",
@@ -43,17 +45,17 @@ module.exports = {
 	// 		gasPrice: 5000000000, // 5 Gwei
 	// 		skipDryRun: true,
 	//   },
-	//   mainnet: {
-	//     provider: new HDWalletProvider(process.env.DEPLOYMENT_ACCOUNT_KEY, "https://mainnet.infura.io/v3/" + process.env.INFURA_API_KEY),
-	//     network_id: 1,
-	//     gas: 5000000,
-	//     gasPrice: 5000000000 // 5 Gwei
-	//   },
+	  mainnet: {
+	    provider: new HDWalletProvider(process.env.DEPLOYMENT_ACCOUNT_KEY, "https://mainnet.infura.io/v3/" + process.env.INFURA_API_KEY),
+	    network_id: 1,
+	    gas: 5000000,
+	    gasPrice: 5000000000 // 5 Gwei
+	  },
 	  
 	},
 	compilers: {
 		solc: {
-			version: '^0.6.6', // Fetch exact version from solc-bin (default: truffle's version)
+			version: '^0.8.4', // Fetch exact version from solc-bin (default: truffle's version)
 		},
 	},
 }

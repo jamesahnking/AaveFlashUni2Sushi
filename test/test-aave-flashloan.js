@@ -3,29 +3,28 @@ const { sendEther, pow } = require("./util")
 const { DAI, DAI_WHALE, USDC, USDC_WHALE, USDT, USDT_WHALE } = require("./config")
 
 const IERC20 = artifacts.require("IERC20")
-const TestAaveFlashLoan = artifacts.require("TestAaveFlashLoan")
+const Flashloan = artifacts.require("Flashloan")
 
-contract("TestAaveFlashLoan", (accounts) => {
-  const WHALE = USDC_WHALE  // 
-  const TOKEN_BORROW = USDC // token to be borrowed
+contract("FlashLoan", (accounts) => {
+  const WHALE = USDC_WHALE
+  const TOKEN_BORROW = USDC
   const DECIMALS = 6
-  const FUND_AMOUNT = pow(10, DECIMALS).mul(new BN(2000)) //fund contract
-  const BORROW_AMOUNT = pow(10, DECIMALS).mul(new BN(1000)) //borrow funds
+  const FUND_AMOUNT = pow(10, DECIMALS).mul(new BN(2000))
+  const BORROW_AMOUNT = pow(10, DECIMALS).mul(new BN(1000))
 
-  // Aave lending pool address provider.
-  const ADDRESS_PROVIDER = "0x88757f2f99175387ab4c6a4b3067c77a695b0349"
+  const ADDRESS_PROVIDER = '0xB53C1a33016B2DC2fF3653530bfF1848a515c8c5'
 
   let testAaveFlashLoan
   let token
-  beforeEach(async () => { // before each test
-    token = await IERC20.at(TOKEN_BORROW) // usdc token
-    testAaveFlashLoan = await TestAaveFlashLoan.new(ADDRESS_PROVIDER) // new flashloan object
+  beforeEach(async () => {
+    token = await IERC20.at(TOKEN_BORROW)
+    testAaveFlashLoan = await Flashloan.new(ADDRESS_PROVIDER)
 
-    await sendEther(web3, accounts[0], WHALE, 1) // provider, usdc, aave reserve, ECR20
+    await sendEther(web3, accounts[0], WHALE, 1)
 
     // send enough token to cover fee
     const bal = await token.balanceOf(WHALE)
-    assert(bal.gte(FUND_AMOUNT), "balance < FUND") // gte = greater than or equal to
+    assert(bal.gte(FUND_AMOUNT), "balance < FUND")
     await token.transfer(testAaveFlashLoan.address, FUND_AMOUNT, {
       from: WHALE,
     })
