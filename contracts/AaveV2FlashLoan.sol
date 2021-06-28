@@ -34,7 +34,7 @@ pragma solidity ^0.8;
 import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 import "./interfaces/aave/FlashLoanReceiverBase.sol";
 
-contract FlashLoan is FlashLoanReceiverBase {
+contract AaveV2FlashLoan is FlashLoanReceiverBase {
   using SafeMath for uint;
 
   event Log(string message, uint val);
@@ -44,7 +44,7 @@ contract FlashLoan is FlashLoanReceiverBase {
     FlashLoanReceiverBase(_addressProvider)
   {}
 
-  function testFlashLoan(address asset, uint amount) external {
+  function myAaveFlashLoan(address asset, uint amount) external {
     uint bal = IERC20(asset).balanceOf(address(this));  
     require(bal > amount, "bal <= amount");
 
