@@ -45,7 +45,7 @@ contract FlashLoan is FlashLoanReceiverBase {
   {}
 
   function testFlashLoan(address asset, uint amount) external {
-    uint bal = IERC20(asset).balanceOf(address(this));
+    uint bal = IERC20(asset).balanceOf(address(this));  
     require(bal > amount, "bal <= amount");
 
     address receiver = address(this);
