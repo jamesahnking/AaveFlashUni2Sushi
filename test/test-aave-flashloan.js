@@ -31,7 +31,7 @@ contract("AaveV2FlashLoan", (accounts) => {
   })
 
   it("flash loan", async () => {
-    const tx = await aaveFlashLoanTest.myAaveFlashLoan(token.address, BORROW_AMOUNT, {
+    const tx = await aaveFlashLoanTest.AaveFlashLoan(token.address, BORROW_AMOUNT, {
       from: WHALE,
     })
     for (const log of tx.logs) {

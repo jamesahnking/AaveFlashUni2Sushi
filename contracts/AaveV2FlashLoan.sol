@@ -44,25 +44,19 @@ contract AaveV2FlashLoan is FlashLoanReceiverBase {
     FlashLoanReceiverBase(_addressProvider)
   {}
 
-  function myAaveFlashLoan(address asset, uint amount) external {
+  function AaveFlashLoan(address asset, uint amount) external {
     uint bal = IERC20(asset).balanceOf(address(this));  
     require(bal > amount, "bal <= amount");
 
     address receiver = address(this);
-
     address[] memory assets = new address[](1);
-    assets[0] = asset;
-
     uint[] memory amounts = new uint[](1);
-    amounts[0] = amount;
-
-    // 0 = no debt, 1 = stable, 2 = variable
-    // 0 = pay all loaned
     uint[] memory modes = new uint[](1);
+    assets[0] = asset;
+    amounts[0] = amount;
     modes[0] = 0;
 
     address onBehalfOf = address(this);
-
     bytes memory params = ""; // extra data to pass abi.encode(...)
     uint16 referralCode = 0;
 

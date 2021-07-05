@@ -6,15 +6,15 @@ import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 
 import "./IFlashLoanReceiver.sol";
-import "./ILendingPoolAddressProvider.sol";
-import "./ILendingPool.sol";
+import "contracts/interfaces/aave/ILendingPoolAddressProvider.sol";
+import "contracts/interfaces/aave/ILendingPool.sol";
 
 abstract contract FlashLoanReceiverBase is IFlashLoanReceiver {
   using SafeERC20 for IERC20;
   using SafeMath for uint;
 
-  ILendingPoolAddressesProvider public immutable ADDRESSES_PROVIDER;
-  ILendingPool public immutable LENDING_POOL;
+  ILendingPoolAddressesProvider public immutable override ADDRESSES_PROVIDER;
+  ILendingPool public immutable override LENDING_POOL;
 
   constructor(ILendingPoolAddressesProvider provider) {
     ADDRESSES_PROVIDER = provider;
